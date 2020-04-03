@@ -1,5 +1,9 @@
 # PornHub Premium Downloader
-## Support Pornhub Premium
+## Change
+Support Pornhub Premium
+## Prepare
+A pornhub accounts and use this export cookies.txt
+[cookies.txt](https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg)
 
 # Installation
 
