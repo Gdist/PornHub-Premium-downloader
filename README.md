@@ -2,8 +2,7 @@
 ## Change
 Support Pornhub Premium
 ## Prepare
-A pornhub accounts and use this export cookies.txt
-[cookies.txt](https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg)
+A pornhub accounts and use [this](https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg) export cookies.txt
 
 # Installation
 
