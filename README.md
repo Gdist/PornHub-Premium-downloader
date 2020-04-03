@@ -1,8 +1,7 @@
 # PornHub Premium Downloader
+[![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/PornHub-downloader-python.svg)]()
 
 Support Pornhub Premium
-
-[![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/PornHub-downloader-python.svg)]()
 
 If you feel like it, you can donate me a beer or two ;) Just for the troubles! <br />
 [DONATE BUTTON](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7MTJVTTQM9YQE&source=url)
