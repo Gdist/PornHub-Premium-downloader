@@ -1,4 +1,6 @@
-# PornHub Downloader
+# PornHub Premium Downloader
+
+Support Pornhub Premium
 
 [![GitHub Issues Open](https://github-basic-badges.herokuapp.com/issues/mariosemes/PornHub-downloader-python.svg)]()
 
@@ -116,4 +118,5 @@ This should not bother you... I just wanted to explain how it works.
 YouTube-DL <br />
 PrettyTables <br />
 BS4 aka BeautifulSoup4 <br />
+PornHub-downloader-python <br />
 and of course, all of you :)
