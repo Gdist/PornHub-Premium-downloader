@@ -5,6 +5,7 @@ import sys
 import urllib.parse as urlparse
 import sqlite3
 import os
+import http.cookiejar
 from prettytable import PrettyTable
 from sqlite3 import Error
 from urllib import request
@@ -12,8 +13,10 @@ from bs4 import BeautifulSoup
 
 ##################################### FUNCTIONS
 Premium = True if os.path.exists('cookies.txt') else False
-cookies = {'cookie':'ua=97fc230848bc304ccee289a55f3e5339; platform_cookie_reset=pc; platform=pc; bs=edyc7bt262ft897tfytpngfaz258fgb2; ss=779374434555413742; expiredEnterModalShown=1; _ga=GA1.2.1250197547.1585944617; _gid=GA1.2.1954449055.1585944617; lang=en; RNLBSERVERID=ded7400; il=v1hGnkp4YXK-9OYBZUBbCyJC5RRwltekirapfktOsZb3oxNTkzNzIxNTMwV1loQy15cmpFU3FXMjB1azhoWWd5dUxaOUU3b0FQUHVFbVBtUTdUbw..; performance_timing=video; _gat=1'}
 headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
+cj = http.cookiejar.MozillaCookieJar('cookies.txt')
+cj.load()
+
 ##################################### Database location
 database = "./database.db"
 
@@ -66,7 +69,7 @@ def ph_type_check(url):
         sys.exit()
 
 def ph_alive_check(url):
-    request = requests.get(url,headers=headers,cookies=cookies)
+    request = requests.get(url,headers=headers,cookies=cj)
     if request.status_code == 200:
         print ("and the URL is existing.")
     else:
@@ -92,7 +95,7 @@ def get_item_name(item_type, url_item):
     url = url_item
     '''html = request.urlopen(url).read().decode('utf8')
     html[:60]'''
-    html=requests.get(url,headers=headers,cookies=cookies)
+    html=requests.get(url,headers=headers,cookies=cj)
     html.encoding = 'UTF-8'
     #soup = BeautifulSoup(html, 'html.parser')
     soup = BeautifulSoup(html.text, 'lxml')
