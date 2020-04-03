@@ -11,10 +11,11 @@ from urllib import request
 from bs4 import BeautifulSoup
 
 ##################################### FUNCTIONS
-
+Premium = True if os.path.exists('cookies.txt') else False
+cookies = {'cookie':'ua=97fc230848bc304ccee289a55f3e5339; platform_cookie_reset=pc; platform=pc; bs=edyc7bt262ft897tfytpngfaz258fgb2; ss=779374434555413742; expiredEnterModalShown=1; _ga=GA1.2.1250197547.1585944617; _gid=GA1.2.1954449055.1585944617; lang=en; RNLBSERVERID=ded7400; il=v1hGnkp4YXK-9OYBZUBbCyJC5RRwltekirapfktOsZb3oxNTkzNzIxNTMwV1loQy15cmpFU3FXMjB1azhoWWd5dUxaOUU3b0FQUHVFbVBtUTdUbw..; performance_timing=video; _gat=1'}
+headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'}
 ##################################### Database location
 database = "./database.db"
-
 
 ##################################### CHECKINGS 
 
@@ -37,7 +38,9 @@ def type_check(item):
 
 def ph_url_check(url):
     parsed = urlparse.urlparse(url)
-    if parsed.netloc == "www.pornhub.com":
+    if Premium and (parsed.netloc == "www.pornhub.com" or parsed.netloc == "www.pornhubpremium.com"):
+        print ("PornHub url validated.")
+    elif not Premium and parsed.netloc == "www.pornhub.com":
         print ("PornHub url validated.")
     else:
         print ("This is not a PornHub url.")
@@ -63,7 +66,7 @@ def ph_type_check(url):
         sys.exit()
 
 def ph_alive_check(url):
-    request = requests.get(url)
+    request = requests.get(url,headers=headers,cookies=cookies)
     if request.status_code == 200:
         print ("and the URL is existing.")
     else:
@@ -87,10 +90,12 @@ def add_check(name_check):
 
 def get_item_name(item_type, url_item):
     url = url_item
-    html = request.urlopen(url).read().decode('utf8')
-    html[:60]
-
-    soup = BeautifulSoup(html, 'html.parser')
+    '''html = request.urlopen(url).read().decode('utf8')
+    html[:60]'''
+    html=requests.get(url,headers=headers,cookies=cookies)
+    html.encoding = 'UTF-8'
+    #soup = BeautifulSoup(html, 'html.parser')
+    soup = BeautifulSoup(html.text, 'lxml')
     if item_type == "model":
         finder = soup.find(class_='nameSubscribe')
         title = finder.find(itemprop='name').text.replace('\n','').strip()
@@ -139,7 +144,10 @@ def dl_all_items(conn):
         print("-----------------------------")
         print(row[1])
         print(row[2])
-        print("https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2]) + url_after)
+        if Premium:
+            print("https://www.pornhubpremium.com/" + str(row[1]) + "/" + str(row[2]) + url_after)
+        else:
+            print("https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2]) + url_after)
         print("-----------------------------")
 
         # Find more available options here: https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L129-L279
@@ -152,9 +160,11 @@ def dl_all_items(conn):
             'nooverwrites': True,
             'no_warnings': False,   
             'ignoreerrors': True,
+            'cookiefile':'cookies.txt',
         }
 
-        url = "https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2] + url_after)
+        url = ("https://www.pornhub.com/" if not Premium else "https://www.pornhubpremium.com/" ) + str(row[1]) + "/" + str(row[2] + url_after) 
+        print(url)
         with youtube_dl.YoutubeDL(ydl_opts_start) as ydl:
             ydl.download([url])
 
@@ -193,7 +203,7 @@ def dl_all_new_items(conn):
         print("-----------------------------")
         print(row[1])
         print(row[2])
-        print("https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2]) + url_after)
+        print(("https://www.pornhub.com/" if not Premium else "https://www.pornhubpremium.com/" ) + str(row[1]) + "/" + str(row[2]) + url_after)
         print("-----------------------------")
 
         # Find more available options here: https://github.com/ytdl-org/youtube-dl/blob/master/youtube_dl/YoutubeDL.py#L129-L279
@@ -204,9 +214,10 @@ def dl_all_new_items(conn):
             'nooverwrites': True,
             'no_warnings': False,   
             'ignoreerrors': True,
+            'cookiefile':'cookies.txt',
         }
 
-        url = "https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2]) + url_after
+        url = ("https://www.pornhub.com/" if not Premium else "https://www.pornhubpremium.com/" ) + str(row[1]) + "/" + str(row[2]) + url_after
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
@@ -253,6 +264,7 @@ def custom_dl_download(url):
         'nooverwrites': True,
         'no_warnings': False,   
         'ignoreerrors': True,
+        'cookiefile':'cookies.txt',
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -323,7 +335,7 @@ def select_all_items(conn, item):
     t.align['Last checked'] = "l"
     t.align['Url'] = "l"
     for row in rows:
-        url = "https://www.pornhub.com/" + str(row[1]) + "/" + str(row[2])
+        url = ("https://www.pornhub.com/" if not Premium else "https://www.pornhubpremium.com/" ) + str(row[1]) + "/" + str(row[2])
         t.add_row([row[0], row[3], row[1], row[5], row[6], url])
     print(t)
 
