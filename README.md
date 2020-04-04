@@ -21,7 +21,7 @@ Also, check if you have pip3 installed (apt install python3-pip). <br />
 2. $ apt install python3-pip
 3. $ pip3 install requests bs4 lxml prettytable youtube-dl
 4. $ git clone https://github.com/Gdist/PornHub-Premium-downloader.git
-5. $ cd PornHub-downloader-python-master
+5. $ cd PornHub-Premium-downloader
 6. $ python3 phdler.py
 ```
 It will ask you for your download folder PATH. Please enter your full path without the last backslash. <br />
