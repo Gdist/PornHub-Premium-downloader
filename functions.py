@@ -15,7 +15,7 @@ import sql
 
 ###### Config
 database = "./database.db"
-AutoUp = False #自動上傳
+AutoUp = True #自動上傳
 Remote = "16tn:Upload/PH"
 upload_command = "rclone move -v \"{}\" \"{}\" --log-file=upload.log" #Rename Command
 
@@ -207,7 +207,7 @@ def dl_all_videos(conn):
         if AutoUp: #自動上傳，採用併發
             destination = Remote + row[1]
             print("Upload :",row[2])
-            subprocess.Popen(upload_command.format(file_path,destination))
+            subprocess.Popen(upload_command.format(file_path,destination),shell=True)
 
 def dl_start():
     conn = create_connection(database)
