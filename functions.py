@@ -5,6 +5,7 @@ import sys
 import sqlite3
 import os
 import http.cookiejar
+import urllib.parse as urlparse
 from prettytable import PrettyTable
 from sqlite3 import Error
 from bs4 import BeautifulSoup
@@ -188,7 +189,6 @@ def dl_all_videos(conn):
     for row in rows:
         name = row[2].replace("\"","\'")
         file_path = get_dl_location('DownloadLocation') + row[1] + '/'+ name +'.mp4'
-        print(file_path)
         if os.path.exists(file_path):
             pass
         else:
