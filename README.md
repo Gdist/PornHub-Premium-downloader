@@ -1,12 +1,14 @@
 # PornHub Premium Downloader
+A tool base on youtube-dl <br />
 Modify from [PornHub-downloader-python](https://github.com/mariosemes/PornHub-downloader-python)
+
 ## Modify
-Support Pornhub Premium
+- [x] Support Pornhub Premium
+- [x] Use viewkey to save videos which has been downloaded
+- [x] use rclone to upload to GoogleDrive
+
 ## Prepare
 A pornhub accounts and use [this](https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg) export Netscape format cookies file and save as cookies.txt
-## Pending
-- [ ] save file which has been downloaded
-- [ ] use rclone upload to GoogleDrive
 
 # Installation
 
@@ -17,14 +19,10 @@ Also, check if you have pip3 installed (apt install python3-pip). <br />
 ```bash
 1. $ apt install python3
 2. $ apt install python3-pip
-3. $ pip3 install youtube-dl
-4. $ pip3 install prettytable
-5. $ pip3 install bs4
-6. $ pip3 install requests
-7. $ wget https://github.com/Gdist/PornHub-Premium-downloader-python/archive/master.zip
-8. $ unzip master.zip
-9. $ cd PornHub-downloader-python-master
-10. $ python3 phdler.py
+3. $ pip3 install requests bs4 lxml prettytable youtube-dl
+4. $ git clone https://github.com/Gdist/PornHub-Premium-downloader.git
+5. $ cd PornHub-downloader-python-master
+6. $ python3 phdler.py
 ```
 It will ask you for your download folder PATH. Please enter your full path without the last backslash. <br />
 Like this: /home/username/media/phmedia <br />
