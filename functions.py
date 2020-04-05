@@ -258,12 +258,9 @@ def custom_dl_download(url,subpath='/handpicked'):
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url,download=True)
-        for key in info.keys():
-            print(key,info[key])
-
-        filename = ydl.prepare_filename(info)
+        file_path = ydl.prepare_filename(info)
         #x = ydl.download([url])
-        return filename
+        return file_path
 
 
 def add_item(name_check):
