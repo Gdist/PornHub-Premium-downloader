@@ -192,9 +192,9 @@ def dl_all_videos(conn):
         if os.path.exists(file_path):
             pass
         else:
-            if os.path.exists(file_path+'.part'): #移除未完成的檔案
+            '''if os.path.exists(file_path+'.part'): #移除未完成的檔案
                 print('Exist unfinished files.')
-                os.remove(file_path+'.part')
+                os.remove(file_path+'.part')'''
             url = 'https://www.pornhub%s.com/view_video.php?viewkey=%s' % ('premium' if Premium else '', row[0])
             file_path = custom_dl_download(url,row[1])
             if not os.path.exists(file_path) : #如果下載失敗(不存在預計檔名的檔案)
