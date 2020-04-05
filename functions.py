@@ -196,8 +196,8 @@ def dl_all_videos(conn):
                 print('Exist unfinished files.')
                 os.remove(file_path+'.part')
             url = 'https://www.pornhub%s.com/view_video.php?viewkey=%s' % ('premium' if Premium else '', row[0])
-            check = custom_dl_download(url,row[1])
-            if check != 0 : #如果下載失敗
+            filename = custom_dl_download(url,row[1])
+            if not os.path.exists(filename) : #如果下載失敗
                 print("FailDL :",row[0])
                 continue
 
@@ -257,8 +257,13 @@ def custom_dl_download(url,subpath='/handpicked'):
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        x = ydl.download([url])
-        return x
+        info = ydl.extract_info(url,download=True)
+        for key in info.keys():
+            print(key,info[key])
+
+        filename = ydl.prepare_filename(info)
+        #x = ydl.download([url])
+        return filename
 
 
 def add_item(name_check):
