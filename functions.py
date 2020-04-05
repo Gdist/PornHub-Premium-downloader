@@ -16,7 +16,7 @@ import sql
 ###### Config
 database = "./database.db"
 AutoUp = True #自動上傳
-Remote = "16tn:Upload/PH"
+Remote = "PH:"
 upload_command = "rclone move -v \"{}\" \"{}\" --log-file=upload.log" #Rename Command
 
 ##### Pre Process
@@ -196,7 +196,15 @@ def dl_all_videos(conn):
                 print('Exist unfinished files.')
                 os.remove(file_path+'.part')
             url = 'https://www.pornhub%s.com/view_video.php?viewkey=%s' % ('premium' if Premium else '', row[0])
-            custom_dl_download(url,row[1])
+            check = custom_dl_download(url,row[1])
+            if check != 0 : #如果下載失敗
+                print("FailDL :",row[0])
+                continue
+
+        if AutoUp: #自動上傳，採用併發
+            destination = Remote + row[1]
+            print("Upload :",row[2])
+            subprocess.Popen(upload_command.format(file_path,destination),shell=True)
 
         try:
             c.execute("UPDATE ph_videos SET finished='1', finish_time=? WHERE viewkey=?", (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), row[0],))
@@ -204,10 +212,6 @@ def dl_all_videos(conn):
         except Error as e:
             print(e)
             sys.exit()
-        if AutoUp: #自動上傳，採用併發
-            destination = Remote + row[1]
-            print("Upload :",row[2])
-            subprocess.Popen(upload_command.format(file_path,destination),shell=True)
 
 def dl_start():
     conn = create_connection(database)
@@ -253,7 +257,8 @@ def custom_dl_download(url,subpath='/handpicked'):
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
+        x = ydl.download([url])
+        return x
 
 
 def add_item(name_check):

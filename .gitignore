@@ -2,6 +2,8 @@
 __pycache__/
 database.db
 cookies.txt
+cookies*.txt
+upload.log
 
 *.py[cod]
 *$py.class

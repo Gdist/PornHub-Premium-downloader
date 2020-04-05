@@ -5,7 +5,8 @@ Modify from [PornHub-downloader-python](https://github.com/mariosemes/PornHub-do
 ## Modify
 - [x] Support Pornhub Premium
 - [x] Use viewkey to save videos which has been downloaded
-- [x] use rclone to upload to GoogleDrive
+- [x] Use rclone to upload to GoogleDrive
+- [x] Skip fail files
 
 ## Prepare
 A pornhub accounts and use [this](https://chrome.google.com/webstore/detail/cookiestxt/njabckikapfpffapmjgojcnbfjonfjfg) export Netscape format cookies file and save as cookies.txt
