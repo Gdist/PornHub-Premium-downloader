@@ -49,7 +49,7 @@ def add_all_items(conn,only_new=True):
 
         subpath = '/' + str(row[1]) + '/' + str(row[3])
         url = ("https://www.pornhub.com/" if not Premium else "https://www.pornhubpremium.com/" ) + str(row[1]) + "/" + str(row[2]) + url_after + '?o=da'
-        Data = get_channel(url, go_next_page=not only_new) #非新的只爬一頁
+        Data = get_channel(url, go_next_page=only_new) #非新的只爬一頁
         #print("Start  : Input %d videos from %s" % (len(Data.keys()), subpath))
         for key in Data.keys():
             line = [key,subpath,Data[key],0,time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) ,'']
