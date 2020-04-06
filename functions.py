@@ -199,6 +199,7 @@ def dl_all_videos(conn):
             file_path = custom_dl_download(url,row[1])
             if not file_path or not os.path.exists(file_path) : #如果下載失敗(不存在預計檔名的檔案)
                 print("FailDL :",row[0])
+                time.sleep(2)
                 continue
 
         if AutoUp: #自動上傳，採用併發
